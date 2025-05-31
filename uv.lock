@@ -67,6 +67,39 @@ wheels = [
 ]
 
 [[package]]
+name = "anylist"
+version = "0.0.1rc1"
+source = { virtual = "." }
+dependencies = [
+    { name = "aiohttp" },
+    { name = "cryptography" },
+    { name = "protobuf" },
+    { name = "pydantic" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "json-five" },
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "aiohttp", specifier = ">=3.12.2" },
+    { name = "cryptography", specifier = ">=45.0.3" },
+    { name = "protobuf", specifier = ">=6.31.0" },
+    { name = "pydantic", specifier = ">=2.11.5" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "json-five", specifier = ">=1.1.2" },
+    { name = "pytest", specifier = ">=8.0.0" },
+    { name = "pytest-asyncio", specifier = ">=0.27.0" },
+]
+
+[[package]]
 name = "attrs"
 version = "25.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -329,39 +362,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/9b/f2/9a676b50229ce37b12777d7b21de90ae7bc0f9505d07e72e2e8d47b8d165/protobuf-6.31.0-cp39-abi3-manylinux2014_aarch64.whl", hash = "sha256:67ce50195e4e584275623b8e6bc6d3d3dfd93924bf6116b86b3b8975ab9e4571", size = 321950 },
     { url = "https://files.pythonhosted.org/packages/a1/a7/243fa2d3c1b7675d54744b32dacf30356f4c27c0d3ad940ca8745a1c6b2c/protobuf-6.31.0-cp39-abi3-manylinux2014_x86_64.whl", hash = "sha256:5353e38844168a327acd2b2aa440044411cd8d1b6774d5701008bd1dba067c79", size = 320904 },
     { url = "https://files.pythonhosted.org/packages/ee/01/1ed1d482960a5718fd99c82f6d79120181947cfd4667ec3944d448ed44a3/protobuf-6.31.0-py3-none-any.whl", hash = "sha256:6ac2e82556e822c17a8d23aa1190bbc1d06efb9c261981da95c71c9da09e9e23", size = 168558 },
-]
-
-[[package]]
-name = "pyanylist"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "aiohttp" },
-    { name = "cryptography" },
-    { name = "protobuf" },
-    { name = "pydantic" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "json-five" },
-    { name = "pytest" },
-    { name = "pytest-asyncio" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "aiohttp", specifier = ">=3.12.2" },
-    { name = "cryptography", specifier = ">=45.0.3" },
-    { name = "protobuf", specifier = ">=6.31.0" },
-    { name = "pydantic", specifier = ">=2.11.5" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "json-five", specifier = ">=1.1.2" },
-    { name = "pytest", specifier = ">=8.0.0" },
-    { name = "pytest-asyncio", specifier = ">=0.27.0" },
 ]
 
 [[package]]

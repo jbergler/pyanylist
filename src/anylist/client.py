@@ -10,7 +10,7 @@ import uuid
 
 import aiohttp
 
-from pyanylist.model import ShoppingList
+from anylist.model import ShoppingList
 
 from .credentials import (
     CREDENTIALS_KEY_CLIENT_ID,
