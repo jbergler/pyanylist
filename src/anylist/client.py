@@ -17,7 +17,8 @@ from anylist.credentials import (
     decrypt_credentials,
     encrypt_credentials,
 )
-from anylist.model import ShoppingList, ShoppingListItem
+from anylist.shopping_list import ShoppingList
+from anylist.shopping_list_item import ShoppingListItem
 
 __all__ = [
     "AnyListClient",

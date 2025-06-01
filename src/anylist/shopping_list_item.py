@@ -1,14 +1,12 @@
+"""ShoppingListItem class for AnyList API."""
+
 import typing
-from uuid import uuid4
 
 from anylist import messages_pb2 as pb
+from anylist.common import uuid
 
 if typing.TYPE_CHECKING:
     from anylist.client import AnyListClient
-
-
-def uuid() -> str:
-    return str(uuid4()).replace("-", "")
 
 
 # Operation mapping for item fields to API handlers
@@ -22,58 +20,13 @@ OP_MAPPING = {
 }
 
 
-class ShoppingList:
-    def __init__(self, client: "AnyListClient", lst: pb.ShoppingList):
-        self.client = client
-        self.identifier = lst.identifier
-        self.name = lst.name
-        self.uid = lst.creator
-        self.items = [ShoppingListItem(client, item) for item in lst.items]
-
-    def __repr__(self):
-        return f"List(id={self.identifier}, name={self.name})"
-
-    async def find_item_by_name(self, name: str) -> typing.Optional["ShoppingListItem"]:
-        return next(
-            filter(lambda item: item.name.lower() == name.lower(), self.items), None
-        )
-
-    async def add_item(self, item: "ShoppingListItem"):
-        if existing := await self.find_item_by_name(item.name):
-            if existing.checked:
-                existing.checked = False
-                await existing.save()
-            return
-
-        item.listId = self.identifier
-        item.userId = self.uid
-
-        op = pb.PBListOperation(
-            listId=self.identifier,
-            listItemId=item.identifier,
-            listItem=item.encode(),
-            metadata=pb.PBOperationMetadata(
-                operationId=uuid(),
-                handlerId="add-shopping-list-item",
-                userId=item.userId,
-            ),
-        )
-
-        ops = pb.PBListOperationList(
-            operations=[op],
-        )
-
-        await self.client._request_protobuf(
-            method="POST",
-            path="data/shopping-lists/update",
-            data={"operations": ops.SerializeToString()},
-            as_form=True,
-            auth_required=True,
-        )
-        self.items.append(item)
-
-
 class ShoppingListItem:
+    """
+    Represents an item in an AnyList shopping list.
+
+    Provides methods to interact with items and their properties.
+    """
+
     def __init__(self, client: "AnyListClient", item: pb.ListItem | None):
         self.client = client
         self._listId = item.listId if item else None
